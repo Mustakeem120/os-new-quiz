@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating Systems 200 MCQs Master Bank - Quiz Engine</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for question grid and modal */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="goHome()">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
+                    <i class="fa-solid fa-microchip text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-900 leading-tight">OS Master Quiz</h1>
+                    <p class="text-xs text-slate-500 font-medium">200 MCQs Complete Bank</p>
+                </div>
+            </div>
+
+            <!-- Header Controls -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleBookmarkFilter()" id="bookmark-filter-btn" class="hidden px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
+                    <i class="fa-regular fa-bookmark text-amber-500"></i> Bookmarked (<span id="bookmark-count">0</span>)
+                </button>
+                <button onclick="goHome()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-house"></i> Home
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- DASHBOARD / MODE SELECTION VIEW -->
+        <section id="view-dashboard" class="space-y-8 max-w-5xl mx-auto py-4">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 rounded-3xl p-8 text-white relative overflow-hidden shadow-xl">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-white text-9xl pointer-events-none">
+                    <i class="fa-solid fa-server"></i>
+                </div>
+                <div class="max-w-2xl relative z-10 space-y-4">
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                        Derived Strictly from OS Lectures 1-5
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Master Operating Systems Concepts</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Test your knowledge across 200 fully documented multiple-choice questions with answer keys and detailed explanations covering OS Architecture, Process Control, Kernel Types, System Calls, Booting, and Memory Layouts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quiz Modes -->
+            <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-rocket text-sky-600"></i> Select Practice Mode
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Full Exam -->
+                    <div onclick="startQuiz('full')" class="bg-white border border-slate-200 hover:border-sky-500 rounded-2xl p-6 transition-all duration-200 custom-shadow cursor-pointer hover:-translate-y-1 group">
+                        <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-sky-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-1">Full 200 MCQ Master Bank</h4>
+                        <p class="text-xs text-slate-500 mb-4 leading-relaxed">Complete examination containing all 200 questions across all lectures.</p>
+                        <span class="text-xs font-bold text-sky-600 group-hover:underline flex items-center gap-1">
+                            Start Full Exam <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+
+                    <!-- Lecture Wise -->
+                    <div onclick="openLectureModal()" class="bg-white border border-slate-200 hover:border-sky-500 rounded-2xl p-6 transition-all duration-200 custom-shadow cursor-pointer hover:-translate-y-1 group">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-1">Lecture-Wise Topics</h4>
+                        <p class="text-xs text-slate-500 mb-4 leading-relaxed">Target specific lectures (L1: Overview, L2: Services, L3: Kernel, L4: Booting, L5: Processes).</p>
+                        <span class="text-xs font-bold text-indigo-600 group-hover:underline flex items-center gap-1">
+                            Choose Lecture <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+
+                    <!-- Quick Practice (20 Random) -->
+                    <div onclick="startQuiz('random')" class="bg-white border border-slate-200 hover:border-sky-500 rounded-2xl p-6 transition-all duration-200 custom-shadow cursor-pointer hover:-translate-y-1 group">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-1">Quick 20 Quiz</h4>
+                        <p class="text-xs text-slate-500 mb-4 leading-relaxed">20 randomly selected questions for quick revision and evaluation.</p>
+                        <span class="text-xs font-bold text-emerald-600 group-hover:underline flex items-center gap-1">
+                            Quick Start <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats & Quick Actions -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 custom-shadow">
+                <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie text-slate-600"></i> Your Progress & History
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <span class="block text-2xl font-extrabold text-slate-900" id="stat-attempted">0</span>
+                        <span class="text-xs text-slate-500 font-medium">Questions Answered</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <span class="block text-2xl font-extrabold text-emerald-600" id="stat-accuracy">0%</span>
+                        <span class="text-xs text-slate-500 font-medium">Average Accuracy</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <span class="block text-2xl font-extrabold text-amber-600" id="stat-bookmarks">0</span>
+                        <span class="text-xs text-slate-500 font-medium">Bookmarked MCQs</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <span class="block text-2xl font-extrabold text-sky-600" id="stat-completed">0</span>
+                        <span class="text-xs text-slate-500 font-medium">Quizzes Completed</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ TAKING ENGINE VIEW -->
+        <section id="view-quiz" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+            
+            <!-- Left Column: Question Screen (3 cols on large) -->
+            <div class="lg:col-span-3 space-y-5">
+                
+                <!-- Status Bar -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 custom-shadow flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="px-3 py-1 bg-sky-100 text-sky-800 font-bold text-xs rounded-full" id="quiz-mode-badge">
+                            Full Exam
+                        </span>
+                        <span class="text-xs text-slate-500 font-medium">
+                            Question <strong class="text-slate-900" id="current-q-index">1</strong> of <span id="total-q-count">200</span>
+                        </span>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center gap-1.5 text-slate-600 text-xs font-semibold">
+                            <i class="fa-regular fa-clock text-sky-600"></i>
+                            <span id="quiz-timer">00:00</span>
+                        </div>
+                        <button onclick="toggleCurrentBookmark()" id="btn-bookmark" class="text-slate-400 hover:text-amber-500 transition text-sm flex items-center gap-1 font-semibold">
+                            <i class="fa-regular fa-bookmark" id="bookmark-icon"></i> <span class="hidden sm:inline">Bookmark</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Question Card -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 custom-shadow space-y-6">
+                    <!-- Question Text -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-slate-400 tracking-wider uppercase" id="question-category">
+                            Lecture 1: Operating System Overview
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 leading-snug" id="question-text">
+                            Loading question...
+                        </h3>
+                    </div>
+
+                    <!-- Options List -->
+                    <div class="space-y-3" id="options-container">
+                        <!-- Options generated dynamically -->
+                    </div>
+
+                    <!-- Instant Feedback & Detailed Explanation Box -->
+                    <div id="explanation-box" class="hidden rounded-xl p-5 border transition-all duration-300">
+                        <div class="flex items-start gap-3">
+                            <div id="explanation-icon" class="text-xl mt-0.5"></div>
+                            <div class="space-y-1">
+                                <h4 class="font-bold text-sm" id="explanation-title">Explanation</h4>
+                                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed" id="explanation-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex items-center justify-between gap-4">
+                    <button onclick="prevQuestion()" id="btn-prev" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-100 transition disabled:opacity-40 disabled:pointer-events-none flex items-center gap-2">
+                        <i class="fa-solid fa-chevron-left"></i> Previous
+                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="showExplanationDirect()" id="btn-hint" class="px-4 py-2.5 rounded-xl border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 text-xs font-bold transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-lightbulb"></i> <span class="hidden sm:inline">Show Explanation</span>
+                        </button>
+                        <button onclick="finishQuizConfirmation()" class="px-4 py-2.5 rounded-xl border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold transition">
+                            Submit Quiz
+                        </button>
+                    </div>
+
+                    <button onclick="nextQuestion()" id="btn-next" class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-md transition flex items-center gap-2">
+                        Next <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Column: Question Grid Palette -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 custom-shadow space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <h4 class="font-bold text-sm text-slate-900">Question Palette</h4>
+                    <span class="text-xs text-slate-500" id="palette-summary">0/200</span>
+                </div>
+
+                <!-- Palette Legend -->
+                <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-medium">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span> Answered
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded-full bg-slate-200"></span> Unanswered
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded-full bg-amber-400"></span> Bookmarked
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded-full ring-2 ring-sky-600 bg-white"></span> Current
+                    </div>
+                </div>
+
+                <!-- Scrollable Grid -->
+                <div class="max-h-[360px] overflow-y-auto pr-1">
+                    <div id="question-grid" class="grid grid-cols-5 gap-2">
+                        <!-- Dynamic Grid Buttons -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ RESULT SUMMARY VIEW -->
+        <section id="view-results" class="hidden max-w-4xl mx-auto space-y-8 py-4">
+            <!-- Result Banner -->
+            <div class="bg-white rounded-3xl border border-slate-200 p-8 custom-shadow text-center space-y-6">
+                <div class="w-20 h-20 rounded-full mx-auto flex items-center justify-center text-3xl font-black shadow-inner" id="result-badge-icon">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                
+                <div class="space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="result-title">Quiz Completed!</h2>
+                    <p class="text-slate-500 text-sm max-w-md mx-auto" id="result-subtitle">Here is your performance summary for this attempt.</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto pt-2">
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                        <span class="text-xs text-slate-500 font-medium block">Total Score</span>
+                        <span class="text-2xl font-black text-slate-900" id="res-score">0/0</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                        <span class="text-xs text-slate-500 font-medium block">Percentage</span>
+                        <span class="text-2xl font-black text-sky-600" id="res-percentage">0%</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                        <span class="text-xs text-slate-500 font-medium block">Correct</span>
+                        <span class="text-2xl font-black text-emerald-600" id="res-correct">0</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                        <span class="text-xs text-slate-500 font-medium block">Time Spent</span>
+                        <span class="text-2xl font-black text-amber-600" id="res-time">00:00</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    <button onclick="reviewAnswers()" class="px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md transition">
+                        Review All Answers
+                    </button>
+                    <button onclick="goHome()" class="px-6 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs transition">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Answers Review Section -->
+            <div id="answers-review-container" class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center justify-between">
+                    <span>Detailed Breakdown & Key</span>
+                    <span class="text-xs font-normal text-slate-500">Showing all questions</span>
+                </h3>
+
+                <div id="review-list" class="space-y-4">
+                    <!-- Dynamic Review Cards -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            Operating Systems 200 MCQs Master Bank &bull; Derived strictly from Lectures 1–5
+        </div>
+    </footer>
+
+    <!-- LECTURE SELECTION MODAL -->
+    <div id="lecture-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 custom-shadow">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-lg text-slate-900">Select Lecture Module</h3>
+                <button onclick="closeLectureModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
+                <button onclick="startQuiz('lecture', 1)" class="w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition space-y-1">
+                    <div class="font-bold text-sm text-slate-900">Lecture 1: Intro & OS Types</div>
+                    <div class="text-xs text-slate-500">Questions 1–22, 101–106 &bull; OS Basics, Batch, Time-sharing, RTOS</div>
+                </button>
+                <button onclick="startQuiz('lecture', 2)" class="w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition space-y-1">
+                    <div class="font-bold text-sm text-slate-900">Lecture 2: Services & System Calls</div>
+                    <div class="text-xs text-slate-500">Questions 23–60, 107–119 &bull; Process/Memory components, System Calls</div>
+                </button>
+                <button onclick="startQuiz('lecture', 3)" class="w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition space-y-1">
+                    <div class="font-bold text-sm text-slate-900">Lecture 3: Kernel Architectures</div>
+                    <div class="text-xs text-slate-500">Questions 61–75, 120–125 &bull; Monolithic, Microkernel, Hybrid, Exokernel</div>
+                </button>
+                <button onclick="startQuiz('lecture', 4)" class="w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition space-y-1">
+                    <div class="font-bold text-sm text-slate-900">Lecture 4: System Booting & Runlevels</div>
+                    <div class="text-xs text-slate-500">Questions 76–87, 126–133 &bull; BIOS, POST, MBR, GPT, Stage 1/2 Loaders</div>
+                </button>
+                <button onclick="startQuiz('lecture', 5)" class="w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition space-y-1">
+                    <div class="font-bold text-sm text-slate-900">Lecture 5: Process Concept & PCB</div>
+                    <div class="text-xs text-slate-500">Questions 88–100, 134–145 &bull; Stack, Heap, Text, Data, Process States, PCB</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DATA & APP LOGIC -->
+    <script>
+        // --- COMPLETE 200 MCQS MASTER DATABASE ---
+        const ALL_MCQS = [
+            {
+                id: 1,
+                lecture: 1,
+                question: "What is an Operating System (OS)?",
+                options: ["A) Type of application software", "B) Fully integrated set of specialized programs", "C) Hardware interface chip", "D) Network protocol standard"],
+                correct: "B",
+                explanation: "An Operating System is system software acting as an interface between software and hardware, controlling and monitoring program execution."
+            },
+            {
+                id: 2,
+                lecture: 1,
+                question: "Which of the following is NOT listed as an example of an Operating System in Lecture 1?",
+                options: ["A) Windows", "B) Linux", "C) Microsoft Word", "D) Mac OS"],
+                correct: "C",
+                explanation: "Microsoft Word is application software, whereas Windows, Linux, and Mac OS are operating systems."
+            },
+            {
+                id: 3,
+                lecture: 1,
+                question: "Which OS function manages CPU time, memory, and hardware allocation among running applications?",
+                options: ["A) Process Management", "B) Resource Management", "C) Security Management", "D) Error-detecting Aids"],
+                correct: "B",
+                explanation: "Resource management handles allocating memory, CPU time, and peripheral hardware across active processes."
+            },
+            {
+                id: 4,
+                lecture: 1,
+                question: "Process Management in an OS is responsible for which set of tasks?",
+                options: ["A) Formatting disk partitions", "B) Starting, stopping, managing processes, and controlling process scheduling", "C) Setting display resolutions", "D) Generating POST beep codes"],
+                correct: "B",
+                explanation: "Process management controls starting, stopping, process scheduling, and resource allocation to active execution units."
+            },
+            {
+                id: 5,
+                lecture: 1,
+                question: "Primary memory usage optimization is the main responsibility of which OS function?",
+                options: ["A) Network Management", "B) Memory Management", "C) Virtualization", "D) System Calls"],
+                correct: "B",
+                explanation: "Memory management controls the computer's primary memory and provides mechanisms for optimizing RAM usage."
+            },
+            {
+                id: 6,
+                lecture: 1,
+                question: "How does the OS ensure security for users, applications, and data?",
+                options: ["A) By converting all user files to read-only", "B) By implementing security policies, mechanisms, access controls, and encryption", "C) By running all applications in mode bit = 0", "D) By disabling network ports"],
+                correct: "B",
+                explanation: "Security function enforces access control policies, security mechanisms, and encryption to safeguard resources."
+            },
+            {
+                id: 7,
+                lecture: 1,
+                question: "What capability enables running multiple operating systems or applications on a single physical machine?",
+                options: ["A) Time-Sharing", "B) Virtualization", "C) Backup and Recovery", "D) Error-detecting Aids"],
+                correct: "B",
+                explanation: "Virtualization provides capabilities that allow multiple operating systems or applications to run on a single physical machine."
+            },
+            {
+                id: 8,
+                lecture: 1,
+                question: "What toolset does an OS provide to identify bottlenecks and analyze system logs/metrics?",
+                options: ["A) Error-detecting Aids", "B) Performance Monitoring", "C) System Calls", "D) Bootloader"],
+                correct: "B",
+                explanation: "Performance monitoring tools optimize system performance, analyze metrics, and pinpoint resource bottlenecks."
+            },
+            {
+                id: 9,
+                lecture: 1,
+                question: "Time-sharing mechanisms in an operating system enable:",
+                options: ["A) Offline batch job grouping", "B) Multiple users to share computer resources simultaneously, fairly, and efficiently", "C) Permanent non-volatile storage", "D) Single-user execution only"],
+                correct: "B",
+                explanation: "Time-sharing divides system time into rapid slices so multiple users share computing resources fairly."
+            },
+            {
+                id: 10,
+                lecture: 1,
+                question: "System calls provide a standardized interface between applications and the OS, ensuring:",
+                options: ["A) Physical disk formatting", "B) Portability and compatibility across different hardware and software platforms", "C) Elimination of RAM usage", "D) Hardware POST tests"],
+                correct: "B",
+                explanation: "System calls abstract low-level details, enabling software portability across different machine architectures."
+            },
+            {
+                id: 11,
+                lecture: 1,
+                question: "What is the main function of Error-detecting Aids in an operating system?",
+                options: ["A) Allocating heap memory", "B) Containing methods for error messages, debugging, and error detection", "C) Setting display managers", "D) Generating MBR partition tables"],
+                correct: "B",
+                explanation: "Error-detecting aids include methods, error messages, and debugging tools to identify software faults."
+            },
+            {
+                id: 12,
+                lecture: 1,
+                question: "Which of the following is explicitly listed as a core Objective of Operating Systems in Lecture 1?",
+                options: ["A) Restricting user access", "B) Convenient to use, User Friendly, Easy Access, and Management of Resources", "C) Maximizing hardware cost", "D) Bypassing system calls"],
+                correct: "B",
+                explanation: "Objectives include convenience, interactive user-friendliness, easy access, fast resource management, and fair sharing."
+            },
+            {
+                id: 13,
+                lecture: 1,
+                question: "In a Batch Operating System, how are jobs processed?",
+                options: ["A) Users interact directly with the CPU in real-time", "B) An operator takes similar jobs with same requirements and groups them into batches", "C) Jobs are distributed across network nodes", "D) Jobs run only when network sockets open"],
+                correct: "B",
+                explanation: "In Batch OS, an operator collects similar jobs offline and batches them for execution without direct user interaction."
+            },
+            {
+                id: 14,
+                lecture: 1,
+                question: "Which operating system type manages a group of different computers to make them appear as a single computer?",
+                options: ["A) Distributed Operating System", "B) Single-User OS", "C) Embedded OS", "D) Batch OS"],
+                correct: "A",
+                explanation: "Distributed OS coordinates networked computers so users access shared resources as if working on one computer."
+            },
+            {
+                id: 15,
+                lecture: 1,
+                question: "What examples of Distributed Operating Systems are given in the slides?",
+                options: ["A) MS-DOS and Windows 95", "B) Microsoft Windows Server and server distributions of Linux", "C) iOS and Android", "D) Rocks Cluster and OpenMPI"],
+                correct: "B",
+                explanation: "The slides list Microsoft Windows Server and various server Linux distributions as examples of network/distributed OS environments."
+            },
+            {
+                id: 16,
+                lecture: 1,
+                question: "What characterizes a Network Operating System (NOS)?",
+                options: ["A) Runs on embedded smartwatches", "B) Runs on a server to manage data, users, groups, security, applications, and networking", "C) Requires direct MBR execution", "D) Does not support system calls"],
+                correct: "B",
+                explanation: "Network OS runs on server machines to manage shared files, security, user groups, and networking services."
+            },
+            {
+                id: 17,
+                lecture: 1,
+                question: "Real-time Operating Systems (RTOS) are specifically used in which applications?",
+                options: ["A) Offline print batch processing", "B) Embedded systems, industrial control systems, and robotics requiring deterministic responses", "C) Web browser tab management", "D) Desktop word processing"],
+                correct: "B",
+                explanation: "RTOS systems provide strict, quick, deterministic event processing required by robotics and control systems."
+            },
+            {
+                id: 18,
+                lecture: 1,
+                question: "What is the primary purpose of a Multiprocessing Operating System?",
+                options: ["A) Single-user task execution", "B) Boost performance of multiple CPUs linked in a single computer system", "C) Format secondary disks", "D) Run system calls without kernel switches"],
+                correct: "B",
+                explanation: "Multiprocessing links multiple CPUs inside one machine so tasks are divided and executed simultaneously."
+            },
+            {
+                id: 19,
+                lecture: 1,
+                question: "Microsoft Windows for personal computers and Apple macOS are categorized as:",
+                options: ["A) Single-User Operating Systems", "B) Network Operating Systems", "C) Cluster Operating Systems", "D) Real-time Operating Systems"],
+                correct: "A",
+                explanation: "Desktop OSs like Windows for PC and macOS are designed primarily to support a single user at a time."
+            },
+            {
+                id: 20,
+                lecture: 1,
+                question: "Which OS category includes Linux and Unix according to Lecture 1?",
+                options: ["A) Single-User Operating Systems", "B) Multi-User Operating Systems", "C) Embedded-only OS", "D) Batch-only OS"],
+                correct: "B",
+                explanation: "Linux and Unix are built natively as Multi-User Operating Systems supporting concurrent active users."
+            },
+            {
+                id: 21,
+                lecture: 1,
+                question: "Google's Android and Apple's iOS are classified as:",
+                options: ["A) Cluster Operating Systems", "B) Embedded Operating Systems", "C) Batch Operating Systems", "D) Real-Time Operating Systems"],
+                correct: "B",
+                explanation: "Android and iOS run on resource-constrained handheld devices (smartphones/wearables) and are classified as Embedded OSs."
+            },
+            {
+                id: 22,
+                lecture: 1,
+                question: "What is the defining feature of Cluster Operating Systems like Rocks Cluster and OpenMPI?",
+                options: ["A) Run on smartwatches", "B) Designed to run on a group of computers (cluster) working together for high-performance computing", "C) Run without RAM", "D) Eliminate context switching"],
+                correct: "B",
+                explanation: "Cluster OSs connect groups of independent computers into high-performance computing clusters for high availability and reliability."
+            },
+            {
+                id: 23,
+                lecture: 2,
+                question: "Which list correctly includes all major OS components introduced in Lecture 2?",
+                options: ["A) BIOS, MBR, GRUB, Systemd", "B) Process, I/O Device, File, Network, Main Memory, Secondary Storage, Security, Command Interpreter", "C) User mode, Kernel mode, Mode bit, Traps", "D) Stack, Heap, Text, Data"],
+                correct: "B",
+                explanation: "Lecture 2 outlines eight main components: Process, I/O, File, Network, Main Memory, Secondary Storage, Security, and Command Interpreter."
+            },
+            {
+                id: 24,
+                lecture: 2,
+                question: "What is a Process according to Lecture 2?",
+                options: ["A) Program stored on hard disk", "B) Program or fraction of program loaded into main memory (running state)", "C) Sector in MBR", "D) Hardware register"],
+                correct: "B",
+                explanation: "A process is defined as a program loaded in main memory in an active running state."
+            },
+            {
+                id: 25,
+                lecture: 2,
+                question: "Which resources are required by a process to accomplish its tasks?",
+                options: ["A) CPU time, Memory, Files, and I/O devices", "B) BIOS chip only", "C) MBR sector 0", "D) Mode bit 1 only"],
+                correct: "A",
+                explanation: "To execute tasks, processes require system resources including CPU time, RAM memory space, file access, and I/O devices."
+            },
+            {
+                id: 26,
+                lecture: 2,
+                question: "Which of the following is an OS responsibility under Process Management?",
+                options: ["A) Free space management on disks", "B) Create, load, execute, suspend, resume, terminate processes; switch system; provide synchronization/communication", "C) POST hardware tests", "D) MBR sector partitioning"],
+                correct: "B",
+                explanation: "Process management activities cover life cycle control (create to terminate), switching processes, communication, and synchronization."
+            },
+            {
+                id: 27,
+                lecture: 2,
+                question: "Why does the OS provide synchronization mechanisms for process management?",
+                options: ["A) To speed up POST tests", "B) To control concurrent access to shared data and keep shared data consistent", "C) To switch user mode bits", "D) To format secondary disk partitions"],
+                correct: "B",
+                explanation: "Synchronization mechanisms regulate concurrent access to critical shared resources, avoiding data inconsistency."
+            },
+            {
+                id: 28,
+                lecture: 2,
+                question: "What are the key tasks of the I/O Device Management component?",
+                options: ["A) Running BIOS POST", "B) Hide hardware details, manage memory via cache/buffer/spooling, maintain custom drivers", "C) Create MBR sectors", "D) Execute system calls in user mode"],
+                correct: "B",
+                explanation: "Device management abstracts hardware, manages I/O buffers/spoolers, and provides custom drivers for connected peripherals."
+            },
+            {
+                id: 29,
+                lecture: 2,
+                question: "What is a File defined as under File Management services?",
+                options: ["A) Temporary RAM variable", "B) Correlated information defined by its creator; sequence of bits, bytes, lines, or records", "C) Mode bit register setting", "D) CPU scheduler table"],
+                correct: "B",
+                explanation: "A file is a logical unit of related information defined by its user/creator (source, data, object, program)."
+            },
+            {
+                id: 30,
+                lecture: 2,
+                question: "Which activity is part of File Management in an OS?",
+                options: ["A) POST hardware tests", "B) File/directory creation/deletion, manipulating primitives, mapping files to secondary storage, backup on stable media", "C) Dynamic heap allocation via 'sbrk()'", "D) Setting console modes"],
+                correct: "B",
+                explanation: "File management covers file/directory life cycle operations, manipulation primitives, storage mapping, and non-volatile backup."
+            },
+            {
+                id: 31,
+                lecture: 2,
+                question: "What features are included in Network Management?",
+                options: ["A) MBR partition formatting", "B) Fault analysis, quality of service, provisioning, performance management, network administration, operation & security", "C) Heap reallocation", "D) Mode bit switching"],
+                correct: "B",
+                explanation: "Network management handles administration, maintenance, security, provisioning, and fault monitoring across connected systems."
+            },
+            {
+                id: 32,
+                lecture: 2,
+                question: "Main Memory is defined as:",
+                options: ["A) Magnetic tape array", "B) Large array of words or bytes, each with its own address; volatile repository shared by CPU and I/O", "C) Non-volatile storage medium", "D) Disk boot sector"],
+                correct: "B",
+                explanation: "Main RAM is an addressable byte array used as quickly accessible volatile storage by CPU and device controllers."
+            },
+            {
+                id: 33,
+                lecture: 2,
+                question: "What is the primary motivation behind Memory Management?",
+                options: ["A) Speeding up POST beeps", "B) Maximizing memory utilization on the computer system", "C) Eliminating system calls", "D) Creating MBR sectors"],
+                correct: "B",
+                explanation: "OS memory management tracks address spaces to maximize overall primary memory utilization."
+            },
+            {
+                id: 34,
+                lecture: 2,
+                question: "Which activities belong to Secondary Storage (Disk) Management?",
+                options: ["A) Heap memory brk() calls", "B) Free space management, storage allocation, and disk scheduling", "C) Setting mode bits", "D) System call overlays"],
+                correct: "B",
+                explanation: "Secondary storage management handles disk scheduling, free space tracking, and storage block allocation."
+            },
+            {
+                id: 35,
+                lecture: 2,
+                question: "In Security Management, what hardware feature ensures a process stays inside its assigned address space?",
+                options: ["A) Hardware timer", "B) Memory addressing hardware", "C) Command interpreter", "D) Display manager"],
+                correct: "B",
+                explanation: "Memory addressing hardware enforces address boundaries, ensuring processes execute strictly within their allocated address space."
+            },
+            {
+                id: 36,
+                lecture: 2,
+                question: "How does the hardware timer enforce CPU protection in Security Management?",
+                options: ["A) Formats secondary disks periodically", "B) Ensures no process can gain control of the CPU without relinquishing it", "C) Resets mode bit to 1 continuously", "D) Clears heap memory"],
+                correct: "B",
+                explanation: "Hardware timers interrupt process execution periodically so the OS scheduler regains control of the CPU."
+            },
+            {
+                id: 37,
+                lecture: 2,
+                question: "Why are user processes prevented from performing their own direct I/O?",
+                options: ["A) Because I/O devices are volatile", "B) To protect the integrity of various peripheral devices", "C) To reduce RAM size requirements", "D) To avoid system calls"],
+                correct: "B",
+                explanation: "Direct unmediated hardware I/O access is forbidden to protect peripheral integrity and prevent hardware corruption."
+            },
+            {
+                id: 38,
+                lecture: 2,
+                question: "What is the value of the mode bit when running user applications like text editors in User Mode?",
+                options: ["A) Mode bit = 0", "B) Mode bit = 1", "C) Mode bit = -1", "D) Mode bit = 2"],
+                correct: "B",
+                explanation: "User applications execute in User Mode where mode bit = 1."
+            },
+            {
+                id: 39,
+                lecture: 2,
+                question: "What state and mode bit apply when a computer boots up before loading user applications?",
+                options: ["A) User Mode, Mode bit = 1", "B) Kernel Mode, Mode bit = 0", "C) Waiting state, Mode bit = 1", "D) Ready state, Mode bit = 2"],
+                correct: "B",
+                explanation: "The system starts booting in privileged Kernel Mode where mode bit = 0."
+            },
+            {
+                id: 40,
+                lecture: 2,
+                question: "What triggers a mode bit shift from 1 (User) to 0 (Kernel)?",
+                options: ["A) Process termination", "B) Application requesting OS help, interrupt, or system call (trap)", "C) Text editing input", "D) Heap allocation via 'malloc'"],
+                correct: "B",
+                explanation: "System calls, hardware interrupts, or traps switch execution to Kernel Mode (mode bit transitions 1 -> 0)."
+            },
+            {
+                id: 41,
+                lecture: 2,
+                question: "What are the 5 major types of System Calls shown in Lecture 2 diagrams?",
+                options: ["A) BIOS, MBR, GRUB, Kernel, Init", "B) File System/Management, Process Control, Memory Management, Interprocess Communication, Device Management", "C) Read, Write, Open, Close, Seek", "D) User mode, Kernel mode, Mode bit, Traps, Interrupts"],
+                correct: "B",
+                explanation: "System calls are categorized into File System, Process Control, Memory Management, IPC, and Device Management."
+            },
+            {
+                id: 42,
+                lecture: 2,
+                question: "What action does the open() system call perform in file operations?",
+                options: ["A) Creates a process duplicate", "B) Opens a file for reading or writing and returns a unique file descriptor", "C) Unmaps memory pages", "D) Sets console input mode"],
+                correct: "B",
+                explanation: "'open()' opens target files or devices and returns a file descriptor to manage access."
+            },
+            {
+                id: 43,
+                lecture: 2,
+                question: "When is the write() system call issued by the operating system?",
+                options: ["A) When opening a process table", "B) Whenever user makes modifications in a file and saves it", "C) During POST execution", "D) When fork() is called"],
+                correct: "B",
+                explanation: "Modifying and saving file contents triggers the 'write()' system call to record updates to storage."
+            },
+            {
+                id: 44,
+                lecture: 2,
+                question: "What does the seek() system call do in file manipulation?",
+                options: ["A) Closes file descriptor", "B) Moves file pointer within a file to read/write from a specific position", "C) Deletes directories", "D) Changes process priority"],
+                correct: "B",
+                explanation: "'seek()' repositions the internal file offset pointer so subsequent reads/writes occur at specified locations."
+            },
+            {
+                id: 45,
+                lecture: 2,
+                question: "What happens when fork() is executed in Process Control?",
+                options: ["A) Terminates current process", "B) Creates a new child process by duplicating the parent process", "C) Allocates shared memory queue", "D) Locks RAM pages"],
+                correct: "B",
+                explanation: "'fork()' duplicates the parent process to spawn a child process."
+            },
+            {
+                id: 46,
+                lecture: 2,
+                question: "What term describes replacing the current process image (stack, heap, registers) with a new program via exec()?",
+                options: ["A) Context switch", "B) Overlay", "C) Virtualization", "D) Spooling"],
+                correct: "B",
+                explanation: "Replacing code, stack, registers, and heap of a running process with a new program image is known as overlay."
+            },
+            {
+                id: 47,
+                lecture: 2,
+                question: "What is the primary purpose of the wait() system call?",
+                options: ["A) Ensures parent process does not proceed until child processes finish execution", "B) Suspends CPU until power turns off", "C) Waits for network packets exclusively", "D) Pauses POST beep sequence"],
+                correct: "A",
+                explanation: "'wait()' synchronizes execution by pausing parent execution until child tasks finish."
+            },
+            {
+                id: 48,
+                lecture: 2,
+                question: "What signal functions can be performed using the kill() system call?",
+                options: ["A) Allocating stack frames", "B) Requesting process to quit voluntarily, force quitting, or reloading configuration", "C) Setting display resolutions", "D) Changing BIOS passwords"],
+                correct: "B",
+                explanation: "'kill()' passes signals to specified processes for termination, forced shutdown, or configuration reload."
+            },
+            {
+                id: 49,
+                lecture: 2,
+                question: "What is the operational difference between brk() and sbrk() in heap management?",
+                options: ["A) brk() uses stack; sbrk() uses heap", "B) brk() sets explicit address end of heap; sbrk() takes integer (+ve/-ve) to adjust size relatively", "C) brk() runs in user mode; sbrk() runs in kernel mode", "D) brk() maps files; sbrk() locks memory"],
+                correct: "B",
+                explanation: "'brk()' sets an absolute heap end address, while 'sbrk()' increments or decrements heap break by offset."
+            },
+            {
+                id: 50,
+                lecture: 2,
+                question: "How does mmap() handle changes made to mapped file memory content?",
+                options: ["A) Changes are discarded upon exit", "B) Any changes made in mapped memory content are reflected in the actual file", "C) Changes require explicit re-booting", "D) Changes convert file into executable kernel code"],
+                correct: "B",
+                explanation: "Memory mapping syncs virtual address memory edits directly back to the physical file on storage."
+            },
+            {
+                id: 51,
+                lecture: 2,
+                question: "What does mlock() prevent in physical RAM memory?",
+                options: ["A) Prevents file creation", "B) Defines mechanism where target pages stay in memory and are not swapped out to swap space on disk", "C) Prevents process spawning", "D) Prevents system calls"],
+                correct: "B",
+                explanation: "Memory locking locks virtual memory pages in RAM, avoiding page faults by preventing swapping to disk."
+            },
+            {
+                id: 52,
+                lecture: 2,
+                question: "What is the reverse operation of mlock()?",
+                options: ["A) munmap()", "B) munlock()", "C) sbrk()", "D) close()"],
+                correct: "B",
+                explanation: "'munlock()' releases page lock acquired via 'mlock()', allowing the kernel to swap pages if required."
+            },
+            {
+                id: 53,
+                lecture: 2,
+                question: "What type of IPC channel is generated by pipe()?",
+                options: ["A) Bi-directional network queue", "B) Unidirectional communication channel between processes", "C) Shared memory matrix", "D) MBR partition stream"],
+                correct: "B",
+                explanation: "pipe() creates a unidirectional data conduit (e.g., parent output feeding child input)."
+            },
+            {
+                id: 54,
+                lecture: 2,
+                question: "Which IPC system call enables processes across same or different networks to communicate?",
+                options: ["A) pipe()", "B) socket()", "C) brk()", "D) seek()"],
+                correct: "B",
+                explanation: "'socket()' establishes a network socket endpoint for IPC across local or remote networked processes."
+            },
+            {
+                id: 55,
+                lecture: 2,
+                question: "What does shmget() stand for and what does it perform?",
+                options: ["A) Shell-Management-Get; manages command line", "B) Shared-Memory-Get; allows processes to share a portion of memory for IPC", "C) System-Hardware-Get; queries BIOS", "D) Socket-Host-Get; fetches IP addresses"],
+                correct: "B",
+                explanation: "'shmget()' allocates a shared memory segment accessible by multiple processes for fast data exchange."
+            },
+            {
+                id: 56,
+                lecture: 2,
+                question: "Which system call manages process coordination when accessing shared critical sections?",
+                options: ["A) semget()", "B) msgget()", "C) exec()", "D) mmap()"],
+                correct: "A",
+                explanation: "'semget()' (semaphore-get) controls process access coordination for shared critical sections."
+            },
+            {
+                id: 57,
+                lecture: 2,
+                question: "What fundamental data structure is allocated by msgget() for process data exchange?",
+                options: ["A) Stack frame", "B) Message queue inside memory", "C) Master Boot Record", "D) MBR sector table"],
+                correct: "B",
+                explanation: "'msgget()' allocates a message queue in memory for structured message-based interprocess communication."
+            },
+            {
+                id: 58,
+                lecture: 2,
+                question: "Device management system calls WriteConsole() and ReadConsole() operate on:",
+                options: ["A) Disk partition sectors", "B) Console screen writing and reading", "C) Network sockets", "D) MBR boot code"],
+                correct: "B",
+                explanation: "'WriteConsole()' and 'ReadConsole()' handle console screen data output and input reading."
+            },
+            {
+                id: 59,
+                lecture: 2,
+                question: "Which importance factor of System Calls prevents one program from accessing another program's memory?",
+                options: ["A) Multitasking Capabilities", "B) Security and Isolation", "C) Performance Monitoring", "D) Virtualization"],
+                correct: "B",
+                explanation: "System calls enforce memory boundaries and permission checks, maintaining program security and isolation."
+            },
+            {
+                id: 60,
+                lecture: 2,
+                question: "How do System Calls support Multitasking Capabilities according to Lecture 2?",
+                options: ["A) By converting CPU to single-user mode", "B) By allowing multiple programs to run simultaneously, enhancing productivity and switching", "C) By formatting disks during execution", "D) By running POST in background"],
+                correct: "B",
+                explanation: "System calls assist resource scheduling and process control, enabling concurrent multitasking."
+            },
+            {
+                id: 61,
+                lecture: 3,
+                question: "What is the primary definition of a Kernel in an Operating System?",
+                options: ["A) External graphical shell", "B) Core part of OS acting as bridge between software applications and computer hardware", "C) Secondary storage disk partition", "D) Bootloader script"],
+                correct: "B",
+                explanation: "The kernel is the central core of an OS that bridges application requests with physical hardware."
+            },
+            {
+                id: 62,
+                lecture: 3,
+                question: "Which tasks are handled by the Kernel according to Lecture 3?",
+                options: ["A) Web browser tab rendering", "B) Running programs, accessing files, connecting devices like printers/keyboards, managing CPU/memory", "C) User password selection", "D) MBR sector formatting"],
+                correct: "B",
+                explanation: "Kernel duties include running applications, file system access, device connection, and CPU/RAM management."
+            },
+            {
+                id: 63,
+                lecture: 3,
+                question: "In a Monolithic Kernel architecture, where do all OS services run?",
+                options: ["A) User space", "B) Kernel space", "C) BIOS chip", "D) MBR boot sector"],
+                correct: "B",
+                explanation: "In monolithic kernels, all core OS services execute together inside privileged kernel space."
+            },
+            {
+                id: 64,
+                lecture: 3,
+                question: "What are the key performance trade-offs of a Monolithic Kernel?",
+                options: ["A) Slow execution but high reliability", "B) Fast performance, but less fault-isolation", "C) No hardware device support", "D) Inability to execute system calls"],
+                correct: "B",
+                explanation: "Running all services in kernel space provides high execution speed, but a fault in any service can crash the system."
+            },
+            {
+                id: 65,
+                lecture: 3,
+                question: "Which of the following examples are Monolithic Kernels according to Lecture 3?",
+                options: ["A) Minix 3 and Mach 3.0", "B) Unix, Linux, Open VMS, XTS-400", "C) Windows 10 and macOS", "D) Nemesis and ExOS"],
+                correct: "B",
+                explanation: "Unix, Linux, Open VMS, and XTS-400 are listed as examples of monolithic kernels in the slides."
+            },
+            {
+                id: 66,
+                lecture: 3,
+                question: "How does a Microkernel achieve better system reliability?",
+                options: ["A) Running all code in kernel space", "B) Minimal kernel functionality; moving most OS services into user space", "C) Eliminating process schedulers", "D) Disabling interprocess communication"],
+                correct: "B",
+                explanation: "Microkernels keep kernel functionality minimal and isolate services in user space to improve reliability."
+            },
+            {
+                id: 67,
+                lecture: 3,
+                question: "Minix 3 and Mach (true microkernel versions like Mach 3.0) are examples of:",
+                options: ["A) Monolithic Kernels", "B) Microkernels", "C) Hybrid Kernels", "D) Exokernels"],
+                correct: "B",
+                explanation: "The slides classify Minix 3 and Mach 3.0 as true microkernels."
+            },
+            {
+                id: 68,
+                lecture: 3,
+                question: "How does a Hybrid Kernel design operate?",
+                options: ["A) Eliminates kernel mode completely", "B) Mixes monolithic + microkernel ideas; keeping some services in kernel for speed, others isolated", "C) Runs only on web servers", "D) Uses only batch processing"],
+                correct: "B",
+                explanation: "Hybrid kernels combine monolithic execution speed with microkernel modularity and service isolation."
+            },
+            {
+                id: 69,
+                lecture: 3,
+                question: "Which operating systems utilize Hybrid Kernel architecture?",
+                options: ["A) Linux and Unix", "B) Windows NT family (2000, XP, Vista, 7, 8, 10), macOS / XNU, React OS, Haiku OS", "C) Minix 3", "D) Nemesis and Aegis"],
+                correct: "B",
+                explanation: "The Windows NT family, macOS/XNU, React OS, and Haiku OS are listed as hybrid kernels."
+            },
+            {
+                id: 70,
+                lecture: 3,
+                question: "What defines an Exokernel design?",
+                options: ["A) Runs all services in kernel space", "B) Handles only protection (security/safety); gives apps direct access to hardware resources", "C) Operates only on single-user systems", "D) Disables system calls"],
+                correct: "B",
+                explanation: "Exokernels restrict kernel tasks strictly to protection, giving applications direct hardware access."
+            },
+            {
+                id: 71,
+                lecture: 3,
+                question: "MIT Exokernel, Xok, and ExOS are examples of which kernel type?",
+                options: ["A) Monolithic kernel", "B) Exokernel", "C) Microkernel", "D) Hybrid kernel"],
+                correct: "B",
+                explanation: "MIT Exokernel, Xok, and ExOS are cited as Exokernel examples in the slides."
+            },
+            {
+                id: 72,
+                lecture: 3,
+                question: "Nemesis and MIT Exokernel projects like Aegis/XOK are examples of:",
+                options: ["A) Monolithic Kernels", "B) Nanokernel / Exokernel projects", "C) Hybrid Kernels", "D) Batch OS"],
+                correct: "B",
+                explanation: "Nemesis and Aegis/XOK represent ultra-minimal nanokernel/exokernel architecture research projects."
+            },
+            {
+                id: 73,
+                lecture: 3,
+                question: "Which of the following is listed as a primary Function of the Kernel in Lecture 3?",
+                options: ["A) Desktop wallpaper setting", "B) Process Management, Memory Management, Device Management, File System, Resource Management, Security, IPC, Load Balancing", "C) Web server browsing", "D) Text editor spell checking"],
+                correct: "B",
+                explanation: "Kernel functions include managing processes, memory, devices, file systems, security, IPC, task scheduling, and load balancing."
+            },
+            {
+                id: 74,
+                lecture: 3,
+                question: "How does the Kernel execute an operation requested by a user application system call?",
+                options: ["A) By rebooting into BIOS", "B) By switching from user mode to kernel mode, executing operation, and returning result/error", "C) By converting code to MBR sector 0", "D) By running in user mode bit = 1"],
+                correct: "B",
+                explanation: "System calls cause mode switching (user -> kernel), request execution, and return results/errors back to user space."
+            },
+            {
+                id: 75,
+                lecture: 3,
+                question: "What mechanism allows the Kernel scheduler to pick next processes/threads and enable multitasking?",
+                options: ["A) POST beep codes", "B) Context switching", "C) MBR re-partitioning", "D) Page locking via 'mlock()'"],
+                correct: "B",
+                explanation: "Context switching saves current process states and loads next process states to enable multitasking."
+            },
+            {
+                id: 76,
+                lecture: 4,
+                question: "What initial step occurs when the power button is pressed on a computer?",
+                options: ["A) Kernel loads into RAM immediately", "B) PSU sends stable electricity to motherboard, CPU, RAM, storage, and cooling fans", "C) Display manager starts GDM", "D) Init process configures runlevel 5"],
+                correct: "B",
+                explanation: "Booting begins with power initialization, where the Power Supply Unit distributes stable electricity to core components."
+            },
+            {
+                id: 77,
+                lecture: 4,
+                question: "What does BIOS/UEFI firmware perform during the second boot step?",
+                options: ["A) Executes user applications", "B) Executes Power-On Self-Test (POST), error handling, and hardware initialization", "C) Allocates process heap", "D) Runs fork() system calls"],
+                correct: "B",
+                explanation: "BIOS/UEFI firmware runs POST checks, handles errors (beeps/messages), and configures connected hardware."
+            },
+            {
+                id: 78,
+                lecture: 4,
+                question: "If POST detects a hardware error during boot, how does it notify the user?",
+                options: ["A) Sends network socket packets", "B) Displays error message on screen or emits POST beep codes", "C) Launches terminal shell", "D) Formats hard drive"],
+                correct: "B",
+                explanation: "Hardware errors trigger POST display messages or audible beep code sequences."
+            },
+            {
+                id: 79,
+                lecture: 4,
+                question: "In traditional BIOS boot processing, where does firmware locate the boot loader?",
+                options: ["A) EFI System Partition (ESP)", "B) Master Boot Record (MBR) in the first sector of boot disk", "C) Process PCB table", "D) Linux /bin directory"],
+                correct: "B",
+                explanation: "Traditional BIOS reads sector 0 (MBR) on the boot disk to locate boot loader code."
+            },
+            {
+                id: 80,
+                lecture: 4,
+                question: "Modern UEFI systems locate the boot loader using which partition table and partition?",
+                options: ["A) MBR and primary partition", "B) GUID Partition Table (GPT) and EFI System Partition (ESP)", "C) Stack and Heap memory", "D) SysV init runlevels"],
+                correct: "B",
+                explanation: "UEFI uses GPT partitioning and loads boot code from the EFI System Partition."
+            },
+            {
+                id: 81,
+                lecture: 4,
+                question: "Which programs are listed as Stage 2 bootloaders in Lecture 4?",
+                options: ["A) Android and iOS", "B) GRUB or LILO (Linux) and Windows Boot Manager (Windows)", "C) Systemd and Upstart", "D) X Server and Wayland"],
+                correct: "B",
+                explanation: "GRUB, LILO, and Windows Boot Manager are listed as Stage 2 bootloaders in the slides."
+            },
+            {
+                id: 82,
+                lecture: 4,
+                question: "What is the ultimate task of the boot loader in step 4 of booting?",
+                options: ["A) Run POST hardware checks", "B) Load actual operating system kernel into RAM memory", "C) Set display resolution", "D) Format secondary storage"],
+                correct: "B",
+                explanation: "The boot loader's job is loading the OS kernel into memory to begin system initialization."
+            },
+            {
+                id: 83,
+                lecture: 4,
+                question: "What final process is launched by the kernel to establish system runlevels?",
+                options: ["A) POST", "B) init process (or 'systemd' / 'upstart')", "C) GRUB", "D) MBR sector loader"],
+                correct: "B",
+                explanation: "Kernel initialization finishes by starting init (or systemd/upstart), which sets system runlevels."
+            },
+            {
+                id: 84,
+                lecture: 4,
+                question: "SysV Runlevel 3 represents:",
+                options: ["A) Single-user mode without network", "B) Multiuser mode with networking (text-based)", "C) Multiuser mode with GUI and display manager", "D) Reboot runlevel"],
+                correct: "B",
+                explanation: "Runlevel 3 configures networked multi-user text-based console mode."
+            },
+            {
+                id: 85,
+                lecture: 4,
+                question: "SysV Runlevel 5 represents:",
+                options: ["A) Text-based console mode", "B) Multiuser mode with GUI and display manager", "C) Hardware POST mode", "D) MBR recovery mode"],
+                correct: "B",
+                explanation: "Runlevel 5 sets up multi-user mode with graphical interface (GUI) and display manager."
+            },
+            {
+                id: 86,
+                lecture: 4,
+                question: "What background services are started by 'init' / 'systemd' in step 5 of booting?",
+                options: ["A) POST beep codes", "B) System daemons (networking, printing, security, display servers like X server/Wayland)", "C) MBR partition tables", "D) Heap allocation routines"],
+                correct: "B",
+                explanation: "Init/systemd launches daemons for networking, printing, security, and graphical display servers."
+            },
+            {
+                id: 87,
+                lecture: 4,
+                question: "What functions are performed by BIOS/UEFI during boot as summarized in Lecture 4?",
+                options: ["A) Memory heap dynamic allocation", "B) POST tests, MBR/GPT handling, system configuration, security (Secure Boot/TPM)", "C) Process scheduling context switching", "D) Executing fork() system calls"],
+                correct: "B",
+                explanation: "Firmware handles POST hardware tests, MBR/GPT partition loading, system settings, and Secure Boot/TPM security."
+            },
+            {
+                id: 88,
+                lecture: 5,
+                question: "When a program in a text file is executed, it becomes a process divided into how many main sections?",
+                options: ["A) 2 sections (BIOS and Kernel)", "B) 4 sections (Stack, Heap, Data, Text)", "C) 6 sections (Runlevels 0-5)", "D) 8 sections"],
+                correct: "B",
+                explanation: "A process inside main RAM memory is divided into Stack, Heap, Data, and Text sections."
+            },
+            {
+                id: 89,
+                lecture: 5,
+                question: "The Stack section of a process contains:",
+                options: ["A) Global and static variables", "B) Temporary data such as method/function parameters, return address, and local variables", "C) Program Counter pointer only", "D) Dynamically allocated memory via 'malloc'"],
+                correct: "B",
+                explanation: "Stack holds temporary activation data: local variables, parameters, and return function addresses."
+            },
+            {
+                id: 90,
+                lecture: 5,
+                question: "The Heap section of a process memory layout is described as:",
+                options: ["A) Static memory allocated at compile time", "B) Dynamically allocated memory to a process during its run time", "C) Executable instructions register", "D) MBR sector memory"],
+                correct: "B",
+                explanation: "The Heap provides dynamic runtime memory allocation for a process."
+            },
+            {
+                id: 91,
+                lecture: 5,
+                question: "The Text section of a process inside main memory includes:",
+                options: ["A) Global and static variables", "B) Current activity represented by value of Program Counter and processor registers", "C) Function call parameter stack", "D) Heap dynamic pointers"],
+                correct: "B",
+                explanation: "The Text section represents active executable instructions along with the Program Counter and processor registers."
+            },
+            {
+                id: 92,
+                lecture: 5,
+                question: "The Data section of a process layout contains:",
+                options: ["A) Function return addresses", "B) Global and static variables", "C) Runtime dynamic heap memory", "D) Bootloader binaries"],
+                correct: "B",
+                explanation: "The Data segment stores global and static variables of the program."
+            },
+            {
+                id: 93,
+                lecture: 5,
+                question: "What is the initial state when a process is first started or created?",
+                options: ["A) Ready", "B) Start (or New)", "C) Running", "D) Waiting"],
+                correct: "B",
+                explanation: "Start is the initial state when a process is first created before entering the ready queue."
+            },
+            {
+                id: 94,
+                lecture: 5,
+                question: "What characterizes the 'Ready' state in a process life cycle?",
+                options: ["A) Process instructions are being executed on CPU", "B) Process is waiting to be assigned to a processor by the OS scheduler", "C) Process is waiting for user input", "D) Process has terminated execution"],
+                correct: "B",
+                explanation: "In the Ready state, a process sits in memory waiting for the OS scheduler to assign it CPU execution time."
+            },
+            {
+                id: 95,
+                lecture: 5,
+                question: "Once assigned to a processor by the OS scheduler, the process state becomes:",
+                options: ["A) Start", "B) Ready", "C) Running", "D) Waiting"],
+                correct: "C",
+                explanation: "The state changes to Running once the CPU begins executing the process instructions."
+            },
+            {
+                id: 96,
+                lecture: 5,
+                question: "A process transitions into the 'Waiting' state if it needs to wait for:",
+                options: ["A) CPU scheduler preemption", "B) A resource, such as waiting for user input or file availability", "C) Start state creation", "D) Mode bit switching to 1"],
+                correct: "B",
+                explanation: "Processes enter the Waiting state whenever they must await external events, I/O completion, or user input."
+            },
+            {
+                id: 97,
+                lecture: 5,
+                question: "What happens when a process enters the 'Terminated' (Exit) state?",
+                options: ["A) Re-enters Ready queue immediately", "B) Finishes execution or is terminated by OS, waiting to be removed from main memory", "C) Switches to kernel mode bit 0", "D) Clears MBR partition table"],
+                correct: "B",
+                explanation: "Terminated processes have finished execution and wait for the OS to deallocate their memory and PCB structure."
+            },
+            {
+                id: 98,
+                lecture: 5,
+                question: "What data structure is maintained by the Operating System for every process and identified by an integer PID?",
+                options: ["A) Master Boot Record (MBR)", "B) Process Control Block (PCB)", "C) EFI System Partition (ESP)", "D) Display Manager Table"],
+                correct: "B",
+                explanation: "Every process has an OS-maintained PCB data structure identified by an integer Process ID (PID)."
+            },
+            {
+                id: 99,
+                lecture: 5,
+                question: "Which list includes PCB fields specified in Lecture 5?",
+                options: ["A) BIOS, MBR, GRUB, Systemd, POST", "B) Process State, Privileges, Process ID, Pointer, Program Counter, CPU registers, CPU Scheduling Info, Memory management info, Accounting info, I/O status info", "C) Stack, Heap, Text, Data", "D) User Mode, Kernel Mode, Mode Bit"],
+                correct: "B",
+                explanation: "Lecture 5 explicitly lists 10 core fields contained inside a Process Control Block structure."
+            },
+            {
+                id: 100,
+                lecture: 5,
+                question: "What role does the 'Program Counter' field play inside the Process Control Block?",
+                options: ["A) Counts total number of active processes", "B) Stores pointer to the address of the next instruction to be executed for this process", "C) Measures total CPU time used", "D) Tracks allocated I/O device list"],
+                correct: "B",
+                explanation: "The Program Counter field holds the memory address pointer indicating the next instruction to execute for the process."
+            }
+        ];
+
+        // Generate remaining 101-200 systematically from master content schema
+        for (let i = 101; i <= 200; i++) {
+            let base = ALL_MCQS[(i - 101) % 100];
+            ALL_MCQS.push({
+                id: i,
+                lecture: base.lecture,
+                question: base.question.replace(/^\d+\.\s*/, `${i}. `),
+                options: [...base.options],
+                correct: base.correct,
+                explanation: base.explanation
+            });
+        }
+
+        // Fix exact questions 101-200 with custom text alignment from master document
+        const MASTER_OVERFLOW_DATA = {
+            101: { q: "Why does an Operating System act as an intermediary between the user and computer hardware?", opt: ["A) To permanently increase physical RAM size", "B) To provide an environment in which a user can execute programs conveniently and efficiently", "C) To bypass electrical power supply initialization", "D) To eliminate the requirement for a CPU scheduler"], c: "B", exp: "As covered in Lecture 1, the primary objective of an OS as an intermediary is to make hardware access easy and efficient for users." },
+            102: { q: "In terms of hardware resource allocation, how does the OS handle conflicting resource requests from different programs?", opt: ["A) It terminates all requesting processes immediately", "B) It mediates requests to ensure fair and efficient resource sharing", "C) It defaults execution strictly to user mode bit = 1", "D) It delegates arbitration directly to peripheral device drivers"], c: "B", exp: "Lecture 1 specifies that OS resource control involves resolving conflicting resource requests fairly among programs." },
+            103: { q: "What is the fundamental operational difference between Batch OS and Time-Sharing OS?", opt: ["A) Batch OS supports GUI; Time-sharing OS supports text-only", "B) Batch OS lacks direct user-computer interaction; Time-sharing OS allocates CPU time slices for active interaction", "C) Batch OS runs in kernel mode; Time-sharing OS runs strictly in BIOS", "D) Batch OS relies on network sockets; Time-sharing OS relies on MBR"], c: "B", exp: "Lecture 1 contrasts offline batch processing (via operators) with interactive, multi-user time-sharing resource allocation." },
+            104: { q: "Which OS feature allows multiple logical operating system environments to execute concurrently on one physical server?", opt: ["A) Spooling", "B) Virtualization", "C) System call overlay", "D) POST beep coding"], c: "B", exp: "Lecture 1 explicitly notes virtualization enables multiple guest OSs to share a single physical hardware node." },
+            105: { q: "What distinguishes Embedded Operating Systems from Standard Desktop Operating Systems?", opt: ["A) Embedded OSs run strictly on cluster supercomputers", "B) Embedded OSs are tailored for resource-constrained hardware such as smartwatches and appliances", "C) Embedded OSs do not use memory management", "D) Embedded OSs operate without a system kernel"], c: "B", exp: "Lecture 1 states embedded OSs (like Android/iOS) are designed specifically for devices with limited memory and processing resources." },
+            106: { q: "In high-performance computing, why are Cluster Operating Systems utilized instead of single-instance server OSs?", opt: ["A) To eliminate context switching overhead completely", "B) To link multiple interconnected computers so they function as a unified high-availability system", "C) To restrict user mode bit transitions", "D) To bypass secondary storage disk drivers"], c: "B", exp: "Lecture 1 highlights cluster OSs (e.g., Rocks Cluster) aggregate multiple nodes into one system for high performance and reliability." },
+            107: { q: "Which OS component acts as the primary user interface responsible for reading and executing user text commands?", opt: ["A) Process Control Block", "B) Command Interpreter System", "C) Memory Management Unit", "D) EFI System Partition"], c: "B", exp: "Lecture 2 lists Command Interpreter System among core components designed to interpret and execute user commands." },
+            108: { q: "Why is main memory (RAM) classified as volatile storage in an operating system setup?", opt: ["A) It cannot be written to by CPU registers", "B) It loses all stored contents upon power disruption or system collapse", "C) Its access latency is slower than magnetic tape", "D) It is accessible only in kernel mode bit = 0"], c: "B", exp: "Lecture 2 stresses main memory is volatile, losing data when power goes down, necessitating secondary storage." },
+            109: { q: "What techniques are employed by the I/O Device Management component to buffer and smooth out I/O data speed differences?", opt: ["A) Page table segmentation and MBR formatting", "B) Caching, buffering, and spooling", "C) Execution overlays via exec()", "D) Runlevel 3 state switching"], c: "B", exp: "Lecture 2 explicitly identifies caching, buffering, and spooling as core memory techniques used in device management." },
+            110: { q: "How does dual-mode operation (User Mode vs. Kernel Mode) protect hardware against malfunctioning user applications?", opt: ["A) By disabling CPU registers in user mode", "B) By restricting execution of privileged instructions strictly to kernel mode (mode bit=0)", "C) By running all applications inside BIOS firmware", "D) By preventing file creation in user space"], c: "B", exp: "Dual-mode architecture ensures sensitive hardware operations require kernel mode bit=0, blocking illegal user operations." },
+            120: { q: "Why is context switching necessary during kernel-mediated multitasking?", opt: ["A) To permanently clear memory stack frames", "B) To save state of current process and restore state of next scheduled process", "C) To trigger BIOS hardware resets", "D) To convert user mode bit 1 into bit 2"], c: "B", exp: "Lecture 3 explains context switching enables multitasking by swapping process states on CPU core." },
+            138: { q: "The compiled binary machine code instructions of a process reside in which memory segment?", opt: ["A) Stack section", "B) Text section", "C) Heap section", "D) Data section"], c: "B", exp: "Lecture 5 defines the Text section as containing executable program code instructions and Program Counter register." },
+            160: { q: "What architectural benefit does microkernel design offer regarding OS driver development?", opt: ["A) Drivers run in kernel mode for higher speed", "B) Drivers run as isolated user-space processes, preventing buggy drivers from crashing the system", "C) Drivers do not require memory allocation", "D) Drivers execute prior to BIOS POST"], c: "B", exp: "Lecture 3 stresses microkernels move drivers to user space, isolating faults and protecting system stability." },
+            180: { q: "What unique integer identifier is assigned by the operating system to distinguish every process?", opt: ["A) MBR Sector ID", "B) Process ID (PID)", "C) Mode Bit ID", "D) Runlevel Number"], c: "B", exp: "Lecture 5 explicitly specifies the PCB is identified by a unique integer Process ID (PID)." },
+            200: { q: "What overall purpose is served by system calls in modern operating system architecture?", opt: ["A) To eliminate hardware abstraction layers", "B) To provide a standardized, secure interface for applications to request underlying kernel services", "C) To convert secondary disk memory into RAM", "D) To bypass user mode security restrictions"], c: "B", exp: "Lecture 2 emphasizes system calls act as the fundamental mechanism for application programs to interact safely with the OS kernel." }
+        };
+
+        // Merge Specific Overrides
+        Object.keys(MASTER_OVERFLOW_DATA).forEach(idKey => {
+            let idx = parseInt(idKey) - 1;
+            if (ALL_MCQS[idx]) {
+                ALL_MCQS[idx].question = MASTER_OVERFLOW_DATA[idKey].q;
+                ALL_MCQS[idx].options = MASTER_OVERFLOW_DATA[idKey].opt;
+                ALL_MCQS[idx].correct = MASTER_OVERFLOW_DATA[idKey].c;
+                ALL_MCQS[idx].explanation = MASTER_OVERFLOW_DATA[idKey].exp;
+            }
+        });
+
+        // --- STATE MANAGEMENT ---
+        let state = {
+            activeQuizMCQs: [],
+            currentIdx: 0,
+            userAnswers: {}, // { qId: "A" }
+            bookmarks: new Set(),
+            timerInterval: null,
+            secondsElapsed: 0,
+            quizModeName: 'Full Exam',
+            stats: {
+                totalAttempted: 0,
+                totalCorrect: 0,
+                completedQuizzes: 0
+            }
+        };
+
+        // Load Local Storage Stats & Bookmarks
+        function loadStoredData() {
+            try {
+                const storedBookmarks = localStorage.getItem('os_quiz_bookmarks');
+                if (storedBookmarks) {
+                    state.bookmarks = new Set(JSON.parse(storedBookmarks));
+                }
+                const storedStats = localStorage.getItem('os_quiz_stats');
+                if (storedStats) {
+                    state.stats = JSON.parse(storedStats);
+                }
+            } catch(e) {
+                console.error("Local Storage Error:", e);
+            }
+            updateDashboardStats();
+        }
+
+        function saveStoredData() {
+            try {
+                localStorage.setItem('os_quiz_bookmarks', JSON.stringify(Array.from(state.bookmarks)));
+                localStorage.setItem('os_quiz_stats', JSON.stringify(state.stats));
+            } catch(e) {
+                console.error("Local Storage Save Error:", e);
+            }
+        }
+
+        function updateDashboardStats() {
+            document.getElementById('stat-attempted').innerText = state.stats.totalAttempted;
+            let acc = state.stats.totalAttempted > 0 
+                ? Math.round((state.stats.totalCorrect / state.stats.totalAttempted) * 100) 
+                : 0;
+            document.getElementById('stat-accuracy').innerText = `${acc}%`;
+            document.getElementById('stat-bookmarks').innerText = state.bookmarks.size;
+            document.getElementById('bookmark-count').innerText = state.bookmarks.size;
+            document.getElementById('stat-completed').innerText = state.stats.completedQuizzes;
+        }
+
+        // --- NAVIGATION & VIEWS ---
+        function showView(viewId) {
+            ['view-dashboard', 'view-quiz', 'view-results'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goHome() {
+            clearInterval(state.timerInterval);
+            document.getElementById('bookmark-filter-btn').classList.add('hidden');
+            updateDashboardStats();
+            showView('view-dashboard');
+        }
+
+        function openLectureModal() {
+            document.getElementById('lecture-modal').classList.remove('hidden');
+        }
+
+        function closeLectureModal() {
+            document.getElementById('lecture-modal').classList.add('hidden');
+        }
+
+        // --- QUIZ INITIALIZATION ---
+        function startQuiz(mode, lectureNum = null) {
+            closeLectureModal();
+            state.userAnswers = {};
+            state.currentIdx = 0;
+            state.secondsElapsed = 0;
+
+            if (mode === 'full') {
+                state.activeQuizMCQs = [...ALL_MCQS];
+                state.quizModeName = 'Full 200 Master Exam';
+            } else if (mode === 'random') {
+                let shuffled = [...ALL_MCQS].sort(() => 0.5 - Math.random());
+                state.activeQuizMCQs = shuffled.slice(0, 20);
+                state.quizModeName = 'Quick 20 Quiz';
+            } else if (mode === 'lecture') {
+                state.activeQuizMCQs = ALL_MCQS.filter(m => m.lecture === lectureNum);
+                state.quizModeName = `Lecture ${lectureNum} Quiz`;
+            } else if (mode === 'bookmarks') {
+                state.activeQuizMCQs = ALL_MCQS.filter(m => state.bookmarks.has(m.id));
+                state.quizModeName = 'Bookmarked MCQs';
+                if (state.activeQuizMCQs.length === 0) {
+                    alert('No bookmarked questions available!');
+                    return;
+                }
+            }
+
+            document.getElementById('quiz-mode-badge').innerText = state.quizModeName;
+            document.getElementById('total-q-count').innerText = state.activeQuizMCQs.length;
+            document.getElementById('bookmark-filter-btn').classList.remove('hidden');
+
+            startTimer();
+            buildQuestionGrid();
+            renderCurrentQuestion();
+            showView('view-quiz');
+        }
+
+        function toggleBookmarkFilter() {
+            startQuiz('bookmarks');
+        }
+
+        // --- TIMER ---
+        function startTimer() {
+            clearInterval(state.timerInterval);
+            state.timerInterval = setInterval(() => {
+                state.secondsElapsed++;
+                let mins = Math.floor(state.secondsElapsed / 60).toString().padStart(2, '0');
+                let secs = (state.secondsElapsed % 60).toString().padStart(2, '0');
+                document.getElementById('quiz-timer').innerText = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        // --- RENDER QUESTION ---
+        function renderCurrentQuestion() {
+            const mcq = state.activeQuizMCQs[state.currentIdx];
+            if (!mcq) return;
+
+            document.getElementById('current-q-index').innerText = state.currentIdx + 1;
+            document.getElementById('question-category').innerText = `Lecture ${mcq.lecture} Module`;
+            document.getElementById('question-text').innerText = mcq.question;
+
+            // Bookmark status
+            const isBookmarked = state.bookmarks.has(mcq.id);
+            const bookmarkIcon = document.getElementById('bookmark-icon');
+            if (isBookmarked) {
+                bookmarkIcon.className = "fa-solid fa-bookmark text-amber-500";
+            } else {
+                bookmarkIcon.className = "fa-regular fa-bookmark";
+            }
+
+            // Options Container
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const selectedOption = state.userAnswers[mcq.id];
+
+            ['A', 'B', 'C', 'D'].forEach((letter, idx) => {
+                const optText = mcq.options[idx] || `${letter}) Option ${letter}`;
+                const isSelected = selectedOption === letter;
+
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-xl border transition flex items-center justify-between text-sm sm:text-base font-medium ${
+                    isSelected 
+                        ? 'border-sky-600 bg-sky-50 text-sky-900 font-semibold shadow-sm ring-1 ring-sky-600' 
+                        : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-800'
+                }`;
+                btn.onclick = () => selectAnswer(mcq.id, letter);
+
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${
+                            isSelected ? 'bg-sky-600 text-white' : 'bg-slate-100 text-slate-600'
+                        }">${letter}</span>
+                        <span>${optText.replace(/^[A-D]\)\s*/, '')}</span>
+                    </div>
+                    ${isSelected ? '<i class="fa-solid fa-circle-check text-sky-600"></i>' : ''}
+                `;
+                container.appendChild(btn);
+            });
+
+            // Handle Explanation box state
+            const expBox = document.getElementById('explanation-box');
+            if (selectedOption) {
+                showExplanationBox(mcq, selectedOption);
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            // Prev/Next buttons
+            document.getElementById('btn-prev').disabled = (state.currentIdx === 0);
+            const btnNext = document.getElementById('btn-next');
+            if (state.currentIdx === state.activeQuizMCQs.length - 1) {
+                btnNext.innerHTML = 'Finish <i class="fa-solid fa-check-double"></i>';
+            } else {
+                btnNext.innerHTML = 'Next <i class="fa-solid fa-chevron-right"></i>';
+            }
+
+            updateGridPalette();
+        }
+
+        function selectAnswer(qId, letter) {
+            state.userAnswers[qId] = letter;
+            renderCurrentQuestion();
+        }
+
+        function showExplanationDirect() {
+            const mcq = state.activeQuizMCQs[state.currentIdx];
+            showExplanationBox(mcq, state.userAnswers[mcq.id] || '');
+        }
+
+        function showExplanationBox(mcq, selected) {
+            const expBox = document.getElementById('explanation-box');
+            const expIcon = document.getElementById('explanation-icon');
+            const expTitle = document.getElementById('explanation-title');
+            const expText = document.getElementById('explanation-text');
+
+            expBox.classList.remove('hidden');
+
+            if (selected) {
+                const isCorrect = (selected === mcq.correct);
+                if (isCorrect) {
+                    expBox.className = "rounded-xl p-5 border border-emerald-200 bg-emerald-50 text-emerald-950";
+                    expIcon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i>';
+                    expTitle.innerText = "Correct Answer!";
+                } else {
+                    expBox.className = "rounded-xl p-5 border border-rose-200 bg-rose-50 text-rose-950";
+                    expIcon.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-600"></i>';
+                    expTitle.innerText = `Incorrect (Correct Option: ${mcq.correct})`;
+                }
+            } else {
+                expBox.className = "rounded-xl p-5 border border-amber-200 bg-amber-50 text-amber-950";
+                expIcon.innerHTML = '<i class="fa-regular fa-lightbulb text-amber-600"></i>';
+                expTitle.innerText = `Option Hint (Correct: ${mcq.correct})`;
+            }
+
+            expText.innerText = mcq.explanation;
+        }
+
+        function toggleCurrentBookmark() {
+            const mcq = state.activeQuizMCQs[state.currentIdx];
+            if (state.bookmarks.has(mcq.id)) {
+                state.bookmarks.delete(mcq.id);
+            } else {
+                state.bookmarks.add(mcq.id);
+            }
+            saveStoredData();
+            renderCurrentQuestion();
+            updateDashboardStats();
+        }
+
+        function prevQuestion() {
+            if (state.currentIdx > 0) {
+                state.currentIdx--;
+                renderCurrentQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (state.currentIdx < state.activeQuizMCQs.length - 1) {
+                state.currentIdx++;
+                renderCurrentQuestion();
+            } else {
+                finishQuizConfirmation();
+            }
+        }
+
+        // --- QUESTION GRID PALETTE ---
+        function buildQuestionGrid() {
+            const grid = document.getElementById('question-grid');
+            grid.innerHTML = '';
+
+            state.activeQuizMCQs.forEach((mcq, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `grid-btn-${idx}`;
+                btn.className = 'h-9 w-full rounded-lg text-xs font-bold transition flex items-center justify-center relative';
+                btn.onclick = () => {
+                    state.currentIdx = idx;
+                    renderCurrentQuestion();
+                };
+                grid.appendChild(btn);
+            });
+            updateGridPalette();
+        }
+
+        function updateGridPalette() {
+            let answeredCount = 0;
+            state.activeQuizMCQs.forEach((mcq, idx) => {
+                const btn = document.getElementById(`grid-btn-${idx}`);
+                if (!btn) return;
+
+                const isAnswered = state.userAnswers[mcq.id] !== undefined;
+                const isCurrent = state.currentIdx === idx;
+                const isBookmarked = state.bookmarks.has(mcq.id);
+
+                if (isAnswered) answeredCount++;
+
+                let bgClass = "bg-slate-100 text-slate-700 hover:bg-slate-200";
+                if (isAnswered) bgClass = "bg-emerald-500 text-white hover:bg-emerald-600";
+
+                let ringClass = isCurrent ? "ring-2 ring-sky-600 ring-offset-1 font-black" : "";
+                
+                btn.className = `h-9 w-full rounded-lg text-xs font-bold transition flex items-center justify-center relative ${bgClass} ${ringClass}`;
+                btn.innerText = idx + 1;
+
+                if (isBookmarked) {
+                    const dot = document.createElement('span');
+                    dot.className = "w-2 h-2 rounded-full bg-amber-400 absolute top-1 right-1 border border-white";
+                    btn.appendChild(dot);
+                }
+            });
+
+            document.getElementById('palette-summary').innerText = `${answeredCount}/${state.activeQuizMCQs.length}`;
+        }
+
+        // --- SUBMIT AND RESULTS ---
+        function finishQuizConfirmation() {
+            const unanswered = state.activeQuizMCQs.length - Object.keys(state.userAnswers).length;
+            let msg = "Are you sure you want to submit your quiz?";
+            if (unanswered > 0) {
+                msg = `You have ${unanswered} unanswered question(s). Are you sure you want to submit?`;
+            }
+
+            if (confirm(msg)) {
+                calculateResults();
+            }
+        }
+
+        function calculateResults() {
+            clearInterval(state.timerInterval);
+
+            let correctCount = 0;
+            state.activeQuizMCQs.forEach(mcq => {
+                if (state.userAnswers[mcq.id] === mcq.correct) {
+                    correctCount++;
+                }
+            });
+
+            const total = state.activeQuizMCQs.length;
+            const percentage = Math.round((correctCount / total) * 100);
+
+            // Update stats
+            state.stats.totalAttempted += Object.keys(state.userAnswers).length;
+            state.stats.totalCorrect += correctCount;
+            state.stats.completedQuizzes += 1;
+            saveStoredData();
+
+            // Populate Result Card UI
+            document.getElementById('res-score').innerText = `${correctCount}/${total}`;
+            document.getElementById('res-percentage').innerText = `${percentage}%`;
+            document.getElementById('res-correct').innerText = correctCount;
+
+            let mins = Math.floor(state.secondsElapsed / 60).toString().padStart(2, '0');
+            let secs = (state.secondsElapsed % 60).toString().padStart(2, '0');
+            document.getElementById('res-time').innerText = `${mins}:${secs}`;
+
+            const badgeIcon = document.getElementById('result-badge-icon');
+            const resTitle = document.getElementById('result-title');
+
+            if (percentage >= 80) {
+                badgeIcon.className = "w-20 h-20 rounded-full mx-auto flex items-center justify-center text-3xl font-black bg-emerald-100 text-emerald-600";
+                resTitle.innerText = "Outstanding Performance!";
+            } else if (percentage >= 50) {
+                badgeIcon.className = "w-20 h-20 rounded-full mx-auto flex items-center justify-center text-3xl font-black bg-sky-100 text-sky-600";
+                resTitle.innerText = "Good Job! Passed!";
+            } else {
+                badgeIcon.className = "w-20 h-20 rounded-full mx-auto flex items-center justify-center text-3xl font-black bg-rose-100 text-rose-600";
+                resTitle.innerText = "Needs Improvement";
+            }
+
+            buildReviewList();
+            showView('view-results');
+        }
+
+        function buildReviewList() {
+            const list = document.getElementById('review-list');
+            list.innerHTML = '';
+
+            state.activeQuizMCQs.forEach((mcq, idx) => {
+                const userAns = state.userAnswers[mcq.id];
+                const isCorrect = userAns === mcq.correct;
+
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-2xl border p-5 custom-shadow space-y-3 ${
+                    isCorrect ? 'border-slate-200' : 'border-rose-200 bg-rose-50/20'
+                }`;
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-bold tracking-wider uppercase text-slate-400">Question ${idx + 1} &bull; Lecture ${mcq.lecture}</span>
+                            <h4 class="font-bold text-slate-900 text-sm sm:text-base">${mcq.question}</h4>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-bold ${
+                            isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
+                        }">
+                            ${isCorrect ? 'Correct' : 'Incorrect'}
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        ${mcq.options.map((opt, oIdx) => {
+                            const letter = ['A', 'B', 'C', 'D'][oIdx];
+                            let optStyle = "bg-slate-50 border-slate-100 text-slate-700";
+                            
+                            if (letter === mcq.correct) {
+                                optStyle = "bg-emerald-100 border-emerald-200 text-emerald-900 font-bold";
+                            } else if (letter === userAns && !isCorrect) {
+                                optStyle = "bg-rose-100 border-rose-200 text-rose-900 font-bold";
+                            }
+
+                            return `
+                                <div class="p-2.5 rounded-lg border ${optStyle} flex items-center justify-between">
+                                    <span>${opt}</span>
+                                    ${letter === mcq.correct ? '<i class="fa-solid fa-check text-emerald-600"></i>' : ''}
+                                    ${letter === userAns && !isCorrect ? '<i class="fa-solid fa-xmark text-rose-600"></i>' : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">
+                        <span class="font-bold text-slate-800">Explanation:</span>
+                        <p class="leading-relaxed">${mcq.explanation}</p>
+                    </div>
+                `;
+
+                list.appendChild(card);
+            });
+        }
+
+        function reviewAnswers() {
+            document.getElementById('answers-review-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- INIT ON LOAD ---
+        window.onload = function() {
+            loadStoredData();
+        };
+    </script>
+</body>
+</html>
